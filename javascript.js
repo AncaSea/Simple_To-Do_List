@@ -1,6 +1,18 @@
 // Mendapatkan elemen list
 let list = document.querySelector('.todo-list');
 
+// Fungsi untuk Load task pada list
+window.addEventListener('DOMContentLoaded', () => {
+    // Mendapatkan data list dari localStorage
+    let savedList = localStorage.getItem('todoList');
+
+    // Jika list tidak kosong
+    if (savedList) {
+        // Tampilkan list yang sudah tersimpan pada list
+        list.innerHTML = savedList;
+    }
+});
+
 // Fungsi untuk Tambah task pada list
 document.querySelector('.todo-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -12,7 +24,7 @@ document.querySelector('.todo-form').addEventListener('submit', function(event) 
     if (input.value.trim() !== '') {
         // Buat elemen "li" baru
         let newItem = document.createElement('li');
-        
+
         // Tambahkan class "todo-item" pada elemen "li" baru
         newItem.classList.add('todo-item');
 
@@ -24,7 +36,7 @@ document.querySelector('.todo-form').addEventListener('submit', function(event) 
         input.value = '';
 
         // Event listener untuk toggle completed
-        newItem.addEventListener('click', function() {
+        newItem.addEventListener('dblclick', function() {
             this.classList.toggle('completed');
         });
     
@@ -38,18 +50,6 @@ document.querySelector('.todo-form').addEventListener('submit', function(event) 
 document.querySelector('.save-list-button').addEventListener('click', function() {
     // Simpan list ke localStorage
     localStorage.setItem('todoList', list.innerHTML);
-});
-
-// Fungsi untuk Load task pada list
-window.addEventListener('DOMContentLoaded', (event) => {
-    // Mendapatkan data list dari localStorage
-    let savedList = localStorage.getItem('todoList');
-
-    // Jika list tidak kosong
-    if (savedList) {
-        // Tampilkan list yang sudah tersimpan pada list
-        list.innerHTML = savedList;
-    }
 });
 
 // Fungsi untuk Hapus task pada list
